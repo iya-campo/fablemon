@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id             String          @id @default(cuid())
+  name           String
+  email          String          @unique
+  password       String
+  pokedollars    Int             @default(1000)
+  spriteUrl      String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  pokemon        Pokemon[]
+  inventoryItems UserInventory[]
+
+  @@map("users")
+}
+
+model Pokemon {
+  id             Int           @id @default(autoincrement())
+  name           String
+  hp             Int
+  gender         Gender
+  level          Int           @default(1)
+  pokeball       Pokeball
+  ability        String
+  friendship     Int           @default(50)
+  experience     Int           @default(0)
+  position       Int?
+  isInParty      Boolean       @default(false)
+  attack         Int
+  defense        Int
+  specialAttack  Int
+  specialDefense Int
+  speed          Int
+  userId         String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  evolution      Evolution?
+  user           User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moves          PokemonMove[]
+  types          PokemonType[]
+
+  @@map("pokemon")
+}
+
+model PokemonType {
+  id        Int     @id @default(autoincrement())
+  type      Type
+  pokemonId Int
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id], onDelete: Cascade)
+
+  @@unique([pokemonId, type])
+  @@map("pokemon_types")
+}
+
+model Move {
+  id       Int           @id @default(autoincrement())
+  name     String        @unique
+  type     Type
+  power    Int
+  accuracy Int
+  pp       Int
+  pokemon  PokemonMove[]
+
+  @@map("moves")
+}
+
+model PokemonMove {
+  id        Int     @id @default(autoincrement())
+  pokemonId Int
+  moveId    Int
+  move      Move    @relation(fields: [moveId], references: [id])
+  pokemon   Pokemon @relation(fields: [pokemonId], references: [id], onDelete: Cascade)
+
+  @@unique([pokemonId, moveId])
+  @@map("pokemon_moves")
+}
+
+model Evolution {
+  id               Int            @id @default(autoincrement())
+  pokemonId        Int            @unique
+  evolvesToId      Int
+  levelRequirement Int
+  itemRequirement  EvolutionItem?
+  pokemon          Pokemon        @relation(fields: [pokemonId], references: [id], onDelete: Cascade)
+
+  @@map("evolutions")
+}
+
+model InventoryItem {
+  id    Int             @id @default(autoincrement())
+  name  String          @unique
+  users UserInventory[]
+
+  @@map("inventory_items")
+}
+
+model UserInventory {
+  id              Int           @id @default(autoincrement())
+  userId          String
+  inventoryItemId Int
+  quantity        Int           @default(1)
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id])
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, inventoryItemId])
+  @@map("user_inventory")
+}
+
+enum Type {
+  NORMAL
+  WATER
+  FIRE
+  GRASS
+  ICE
+  FIGHT
+  POISON
+  GROUND
+  FLYING
+  PSYCHIC
+  BUG
+  ROCK
+  GHOST
+  DRAGON
+  DARK
+  STEEL
+  FAIRY
+  ELECTRIC
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Pokeball {
+  POKEBALL
+  GREATBALL
+  ULTRABALL
+  MASTERBALL
+}
+
+enum EvolutionItem {
+  WATER_STONE
+  FIRE_STONE
+  THUNDER_STONE
+  LEAF_STONE
+  MOON_STONE
+}
