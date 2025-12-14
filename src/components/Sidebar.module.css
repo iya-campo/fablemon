@@ -1,0 +1,23 @@
+.list-item {
+    margin-bottom: 8px;
+}
+
+.list-item:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+.bottom-section {
+    display: flex;
+    align-items: space-between;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.profile-section {
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+}

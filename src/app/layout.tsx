@@ -1,5 +1,11 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "@/theme/theme";
+import { Container, CssBaseline, } from "@mui/material";
+import Sidebar from "@/components/Sidebar";
+import Head from "./head";
 import "@/styles/globals.css";
 
 const geistSans = Geist({
@@ -12,11 +18,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Fablemon",
-  description: "A full-stack Pokemon-inspired application built with Next.js, TypeScript, Prisma, and Supabase",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -24,8 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+            <Sidebar />
+            <Container sx={{ display: 'flex', flexDirection: 'column', pt: 4 }}>
+              {children}
+            </Container>
+        </ThemeProvider>
       </body>
     </html>
   );
