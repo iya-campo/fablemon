@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react'
-import { AcUnit, ArrowDownward, ArrowDropDown, ArrowRight, ArrowRightAlt, Bolt, ChevronLeft, ChevronRight, ChromeReaderMode, Height, RestartAlt, Scale, Twitter, WaterDrop, Whatshot } from '@mui/icons-material'
-import { Box, Button, Chip, Divider, Grid, IconButton, InputAdornment, MenuItem, Paper, Select, SelectChangeEvent, Stack, SvgIcon, TextField, Typography } from '@mui/material'
+import { AcUnit, ArrowDownward, ArrowRightAlt, Bolt, ChevronLeft, ChevronRight, ChromeReaderMode, Height, RestartAlt, Scale, Search, Twitter, WaterDrop, Whatshot } from '@mui/icons-material'
+import { Box, Button, Chip, Divider, Grid, InputAdornment, MenuItem, Paper, Select, SelectChangeEvent, Stack, SvgIcon, TextField, Typography } from '@mui/material'
 import Image from 'next/image';
 
 const Pokedex = () => {
@@ -12,20 +12,29 @@ const Pokedex = () => {
     setAge(event.target.value as string);
   };
 
+  {/* TO DO: 
+    - Bookmark UI
+    - Capture indicator
+    - Search button
+  */}
   return (
     <Stack gap={2} mb={6}>
       <Stack direction='row' alignItems='center' gap={1}>
         <ChromeReaderMode fontSize='medium' />
         <Typography variant='button' fontSize={14} fontWeight='bold'>Pokedex</Typography>
       </Stack>
-      <Grid container size={12} spacing={4}>
-        <Grid container size={8} height='fit-content'>
+      <Grid container size={12} spacing={4} mt={1}>
+        <Grid container size={{ sm: 12, md: 7, lg: 8 }} height='fit-content'>
           <TextField 
             placeholder='Search Pokedex'
             fullWidth
-            sx={{
-              backgroundColor: 'white',
-            }} 
+            size='small'
+            slotProps={{
+              input: {
+                startAdornment: <Search color='action' sx={{ mr: 1 }} />,
+              },
+            }}
+            sx={{ height: '100%', backgroundColor: 'white', '& .MuiInputBase-input': { fontSize: '14px', height: '100%' } }} 
           />
           <Grid container size={12} direction='row' justifyContent='space-between' alignItems='center'>
             <Stack direction='row' alignItems='center' height='fit-content'>
@@ -41,7 +50,7 @@ const Pokedex = () => {
             </Stack>
           </Grid> 
           <Grid container size={12} spacing={2}>
-            <Grid size={2} flexGrow={1}>
+            <Grid size={{ xs: 12, sm: 6, md: 2 }} flexGrow={{ sm: 1 }}>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -67,7 +76,7 @@ const Pokedex = () => {
                 </MenuItem>
               </Select>
             </Grid>
-            <Grid size={2} flexGrow={1}>
+            <Grid size={{ xs: 12, sm: 6, md: 2 }} flexGrow={{ sm: 1 }}>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -93,7 +102,7 @@ const Pokedex = () => {
                 </MenuItem>
               </Select>
             </Grid>
-            <Grid size={2} flexGrow={1}>
+            <Grid size={{ xs: 12, sm: 6, md: 2 }} flexGrow={{ sm: 1 }}>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -119,7 +128,7 @@ const Pokedex = () => {
                 </MenuItem>
               </Select>
             </Grid>
-            <Grid size={2} flexGrow={1}>
+            <Grid size={{ xs: 12, sm: 6, md: 2 }} flexGrow={{ sm: 1 }}>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -146,18 +155,16 @@ const Pokedex = () => {
               </Select>
             </Grid>
             <Grid>
-              <Button variant='contained' sx={{ height: '100%' }}>
+              <Button variant='contained' sx={{ height: '100%' }} fullWidth>
                 <RestartAlt />
               </Button>
             </Grid>
           </Grid>
-          <Grid container size={12} spacing={2} mt={2}>
-            <Grid size={4} height={150}>
+          <Grid container size={12} spacing={2} mt={4}>
+            <Grid size={4} height={155}>
               <Paper elevation={1} sx={{ display: 'flex', flexDirection: 'column', borderRadius: 2, justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                <Box display='flex' alignItems='flex-end' height={52} mt={-6}>
-                  <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif`} width={32} height={32} alt='party-pokemon' />
-                </Box>
-                <Typography variant='button' color='textSecondary' fontWeight='bold' mt={2}>#001</Typography>
+                <Box display='flex' alignItems='flex-end' height={82} width='100%' mt={-7} sx={{ backgroundImage: `url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif)`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
+                <Typography variant='button' color='textSecondary' fontWeight='bold'>#001</Typography>
                 <Typography variant='h6' fontWeight='bold' my={1}>Bulbasaur</Typography>
                 <Stack direction='row' gap={1}>
                   <Typography variant='caption' textAlign='center' bgcolor='green' color='#fff' px={1} py={0.5} borderRadius={1} fontSize={10} fontWeight='bold' textTransform='uppercase'>Grass</Typography>
@@ -165,12 +172,10 @@ const Pokedex = () => {
                 </Stack>
               </Paper>
             </Grid>
-            <Grid size={4} height={150}>
+            <Grid size={4} height={155}>
               <Paper elevation={1} sx={{ display: 'flex', flexDirection: 'column', borderRadius: 2, justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                <Box display='flex' alignItems='flex-end' height={52} mt={-6}>
-                  <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/2.gif`} width={42} height={42} alt='party-pokemon' />
-                </Box>
-                <Typography variant='button' color='textSecondary' fontWeight='bold' mt={2}>#002</Typography>
+                <Box display='flex' alignItems='flex-end' height={82} width='100%' mt={-7} sx={{ backgroundImage: `url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/2.gif)`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
+                <Typography variant='button' color='textSecondary' fontWeight='bold'>#002</Typography>
                 <Typography variant='h6' fontWeight='bold' my={1}>Ivysaur</Typography>
                 <Stack direction='row' gap={1}>
                   <Typography variant='caption' textAlign='center' bgcolor='green' color='#fff' px={1} py={0.5} borderRadius={1} fontSize={10} fontWeight='bold' textTransform='uppercase'>Grass</Typography>
@@ -178,12 +183,10 @@ const Pokedex = () => {
                 </Stack>
               </Paper>
             </Grid>
-            <Grid size={4} height={150}>
+            <Grid size={4} height={155}>
               <Paper elevation={1} sx={{ display: 'flex', flexDirection: 'column', borderRadius: 2, justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
-                <Box display='flex' alignItems='flex-end' height={52} mt={-6}>
-                  <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/3.gif`} width={52} height={52} alt='party-pokemon' />
-                </Box>
-                <Typography variant='button' color='textSecondary' fontWeight='bold' mt={2}>#003</Typography>
+                <Box display='flex' alignItems='flex-end' height={82} width='100%' mt={-7} sx={{ backgroundImage: `url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/3.gif)`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
+                <Typography variant='button' color='textSecondary' fontWeight='bold'>#003</Typography>
                 <Typography variant='h6' fontWeight='bold' my={1}>Venusaur</Typography>
                 <Stack direction='row' gap={1}>
                   <Typography variant='caption' textAlign='center' bgcolor='green' color='#fff' px={1} py={0.5} borderRadius={1} fontSize={10} fontWeight='bold' textTransform='uppercase'>Grass</Typography>
@@ -193,13 +196,13 @@ const Pokedex = () => {
             </Grid>
           </Grid> 
         </Grid>
-        <Grid size={4}>
+        <Grid size={{ sm: 12, md: 5, lg: 4 }}>
           <Paper sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', minHeight: 500, p: 3 }}>
             <Box height={200} width='100%' sx={{ backgroundImage: 'url(/images/venusaur.jpg)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
             <Typography variant='button' color='textSecondary' fontWeight='bold' mt={2}>#003</Typography>
             <Typography variant='h6' fontWeight='bold'>Venusaur</Typography>
             <Typography variant='button' color='textDisabled' fontWeight='bold' mb={1} textTransform='inherit' letterSpacing={0}>Plant Pokemon</Typography>
-                <Stack direction='row' gap={1}>
+            <Stack direction='row' gap={1}>
               <Typography variant='caption' textAlign='center' bgcolor='green' color='#fff' px={1} py={0.5} borderRadius={1} fontSize={10} fontWeight='bold' textTransform='uppercase'>Grass</Typography>
               <Typography variant='caption' textAlign='center' bgcolor='purple' color='#fff' px={1} py={0.5} borderRadius={1} fontSize={10} fontWeight='bold' textTransform='uppercase'>Poison</Typography>
             </Stack>
@@ -273,6 +276,24 @@ const Pokedex = () => {
                 <Box width='100%' height={5} bgcolor='green' borderRadius={50} />
               </Grid>
               <Grid size={3}>
+                <Typography variant='body2' letterSpacing={0} textAlign='end'>Sp. Atk</Typography>
+              </Grid>
+              <Grid size={2}>
+                <Typography variant='body2' letterSpacing={0} textAlign='center'>200</Typography>
+              </Grid>
+              <Grid size={7}>
+                <Box width='100%' height={5} bgcolor='green' borderRadius={50} />
+              </Grid>
+              <Grid size={3}>
+                <Typography variant='body2' letterSpacing={0} textAlign='end'>Sp. Def</Typography>
+              </Grid>
+              <Grid size={2}>
+                <Typography variant='body2' letterSpacing={0} textAlign='center'>200</Typography>
+              </Grid>
+              <Grid size={7}>
+                <Box width='100%' height={5} bgcolor='green' borderRadius={50} />
+              </Grid>
+              <Grid size={3}>
                 <Typography variant='body2' letterSpacing={0} textAlign='end'>Speed</Typography>
               </Grid>
               <Grid size={2}>
@@ -301,21 +322,17 @@ const Pokedex = () => {
               <Grid size={3} height='100%' sx={{ backgroundImage: 'url(/images/venusaur.jpg)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
             </Grid>
             <Grid container size={12} height={70} alignItems='center' bgcolor='#ddd' borderRadius={2} py={1} mt={4}>
-              <Grid container size={5.5} justifyContent='flex-start' alignItems='center' gap={0.75}>
+              <Grid container size={5.5} justifyContent='flex-start' alignItems='center'>
                   <ChevronLeft />
-                  <Box display='flex' alignItems='center' height={52}>
-                    <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif`} width={32} height={32} alt='party-pokemon' />
-                  </Box>
-                  <Typography variant='button' color='textSecondary' fontWeight='bold'>#001</Typography>
+                  <Typography variant='button' color='textSecondary' fontWeight='bold' mr={1}>#001</Typography>
+                  <Typography variant='body2' color='textSecondary' fontWeight='bold'>Bulbasaur</Typography>
               </Grid>
               <Grid container flexGrow={1} justifyContent={'center'} height='100%' py={1}>
                 <Box width={0.05} bgcolor='#9b9b9bff' />
               </Grid>
-              <Grid container size={5.5} justifyContent='flex-end' alignItems='center' gap={0.75}>
-                  <Typography variant='button' color='textSecondary' fontWeight='bold'>#002</Typography>
-                  <Box display='flex' alignItems='center' height={52}>
-                    <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/2.gif`} width={42} height={42} alt='party-pokemon' />
-                  </Box>
+              <Grid container size={5.5} justifyContent='flex-end' alignItems='center'>
+                  <Typography variant='body2' color='textSecondary' fontWeight='bold'>Ivysaur</Typography>
+                  <Typography variant='button' color='textSecondary' fontWeight='bold' ml={1}>#002</Typography>
                   <ChevronRight />
               </Grid>
             </Grid>

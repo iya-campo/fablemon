@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from 'react'
-import { ArrowBack, BusinessCenter, CatchingPokemon, DirectionsRun, Explore, Forest, FrontHand, Grass, MedicationLiquid, MoreVert, Park, SportsMma, Tsunami, Volcano } from '@mui/icons-material'
-import { Box, Button, Chip, Divider, FormControl, Grid, IconButton, List, ListItemButton, ListItemIcon, ListItemText, MenuItem, Paper, Select, SelectChangeEvent, Stack, Typography } from '@mui/material'
+import { ArrowBack, BusinessCenter, CatchingPokemon, DirectionsRun, Explore, Forest, Grass, Loop, MedicationLiquid, MoreVert, Park, SportsMma, Tsunami, Volcano } from '@mui/icons-material'
+import { Box, Button, Chip, Divider, FormControl, Grid, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Select, SelectChangeEvent, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import EncounterActions from '@/components/EncounterActions';
 
@@ -11,11 +11,19 @@ const Wilderness = () => {
   const [encounter, setEncounter] = useState('AAA');
   const [activeAction, setActiveAction] = useState('idle');
   const [itemSelected, setItemSelected] = useState('');
-  const [isTrainerBattle, setIsTrainerBattle] = useState(false);
-  const [age, setAge] = React.useState('');
+  const [habitat, setHabitat] = React.useState('');
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setHabitat(event.target.value as string);
   };
 
   const handleChangeActiveAction = (newAction: string) => {
@@ -43,7 +51,7 @@ const Wilderness = () => {
                 <Typography variant='button' mr={1}>Explore</Typography>
                 <Explore fontSize='medium' />
               </Button>
-              {encounter && <Typography variant='caption' color='error'>Battle Ongoing</Typography>}
+              {/* {encounter && <Typography variant='caption' color='error'>Battle Ongoing</Typography>} */}
             </Stack>
             <Box display='flex' gap={1}>
               <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif`} width={32} height={32} alt='wild-pokemon' />
@@ -57,18 +65,18 @@ const Wilderness = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={age || 'Select habitat to explore'}
+              value={habitat || 'Select habitat to explore'}
               renderValue={(val) => (
-                <Box display='flex' gap={1}>
-                  {val !== 'Select habitat to explore' && <Park fontSize='small' />}
+                <Box display='flex' alignItems='center' gap={1}>
+                  {val === 'Forest' && <Park fontSize='small' />}
+                  {val === 'Volcano' && <Volcano fontSize='small' />}
+                  {val === 'Ocean' && <Tsunami fontSize='small' />}
                   <Typography variant='body2'>{val}</Typography>
                 </Box>
               )}
               size='small'
               onChange={handleChange}
-              sx={{
-                backgroundColor: 'white', // White background
-              }}
+              sx={{ backgroundColor: 'white' }}
             >
               <MenuItem value={''} disabled>
                 <Typography variant='caption'>Select habitat to explore</Typography>
@@ -123,15 +131,15 @@ const Wilderness = () => {
                 </Grid>
                 <Grid size={6}>
                   <Button variant='contained' size='large' fullWidth onClick={() => handleChangeActiveAction('run')}>
-                    <Typography variant='button' mr={1}>{isTrainerBattle ? 'Forfeit' : 'Run'}</Typography>
-                    {isTrainerBattle ? <FrontHand fontSize='medium' /> : <DirectionsRun fontSize='medium' />}
+                    <Typography variant='button' mr={1}>Run</Typography>
+                    <DirectionsRun fontSize='medium' />
                   </Button>
                 </Grid>
               </Grid>
             </Paper>
           </Grid>
           {activeAction === 'fight' && (
-            <Grid size={4} bgcolor='#fff' borderRadius={2} p={2} height='100%' position='absolute' >
+            <Grid size={4} bgcolor='#fff' borderRadius={2} p={2} height='100%' position='absolute'>
               <Grid container spacing={2}>
                 <Grid size={12} my={1}>
                   <Button variant='text' size='small' sx={{ display: 'flex', gap: 0.5 }} onClick={() => handleChangeActiveAction('idle')}>
@@ -172,7 +180,7 @@ const Wilderness = () => {
             </Grid>
           )}
           {activeAction === 'bag' && (
-            <Grid size={4} bgcolor='#fff' borderRadius={2} p={2} height='100%' position='absolute' >
+            <Grid size={4} bgcolor='#fff' borderRadius={2} p={2} height='100%' position='absolute'>
               <Grid container spacing={1}>
                 <Grid size={12} my={1}>
                   <Button variant='text' size='small' sx={{ display: 'flex', gap: 0.5 }} onClick={() => handleChangeActiveAction('idle')}>
@@ -233,7 +241,7 @@ const Wilderness = () => {
             </Grid>
           )}
           {activeAction === 'pokemon' && (
-            <Grid size={4} bgcolor='#fff' borderRadius={2} p={2} height='100%' position='absolute' >
+            <Grid size={4} bgcolor='#fff' borderRadius={2} p={2} height='100%' position='absolute'>
               <Grid container spacing={1}>
                 <Grid size={12} my={1}>
                   <Button variant='text' size='small' sx={{ display: 'flex', gap: 0.5 }} onClick={() => handleChangeActiveAction('idle')}>
@@ -247,6 +255,23 @@ const Wilderness = () => {
                   <Typography variant='body2' textAlign='center' mt={1}>Select a Pokemon to switch out.</Typography>
                 </Grid>
                 <Grid container size={6} spacing={1}>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    elevation={1}
+                    slotProps={{
+                      list: {
+                        'aria-labelledby': 'basic-button',
+                      },
+                    }}
+                  >
+                    <MenuItem onClick={handleClose}>
+                      <Typography variant='body2' mr={1}>Switch Pokemon</Typography>
+                      <Loop fontSize='small' />
+                    </MenuItem>
+                  </Menu>
                   <Box sx={{ display: 'flex', gap: 1, bgcolor: '#ddd', px: 1, py: 1, width: '100%', height: 'fit-content' }} borderRadius={2}>
                     <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif`} width={32} height={32} alt='party-pokemon' />
                     <Stack flexGrow={1}>
@@ -254,7 +279,12 @@ const Wilderness = () => {
                       <Box width='100%' height={2} bgcolor='green' borderRadius={50} />
                       <Typography variant='caption' fontSize={10} textAlign='end'>50/50</Typography>
                     </Stack>
-                    <IconButton size='small'>
+                    <IconButton size='small'
+                      id="basic-button"
+                      aria-controls={open ? 'basic-menu' : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? 'true' : undefined}
+                      onClick={handleClick}>
                       <MoreVert fontSize='small' />
                     </IconButton>
                   </Box>
@@ -265,7 +295,12 @@ const Wilderness = () => {
                       <Box width='100%' height={2} bgcolor='green' borderRadius={50} />
                       <Typography variant='caption' fontSize={10} textAlign='end'>50/50</Typography>
                     </Stack>
-                    <IconButton size='small'>
+                    <IconButton size='small'
+                      id="basic-button"
+                      aria-controls={open ? 'basic-menu' : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? 'true' : undefined}
+                      onClick={handleClick}>
                       <MoreVert fontSize='small' />
                     </IconButton>
                   </Box>
@@ -276,7 +311,12 @@ const Wilderness = () => {
                       <Box width='100%' height={2} bgcolor='green' borderRadius={50} />
                       <Typography variant='caption' fontSize={10} textAlign='end'>50/50</Typography>
                     </Stack>
-                    <IconButton size='small'>
+                    <IconButton size='small'
+                      id="basic-button"
+                      aria-controls={open ? 'basic-menu' : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? 'true' : undefined}
+                      onClick={handleClick}>
                       <MoreVert fontSize='small' />
                     </IconButton>
                   </Box>
@@ -287,7 +327,7 @@ const Wilderness = () => {
             </Grid>
           )}
           {activeAction === 'run' && (
-            <Grid size={4} bgcolor='#fff' borderRadius={2} p={2} height='100%' position='absolute' >
+            <Grid size={4} bgcolor='#fff' borderRadius={2} p={2} height='100%' position='absolute'>
               <Grid container spacing={1}>
                 <Grid size={12} my={1}>
                   <Button variant='text' size='small' sx={{ display: 'flex', gap: 0.5 }} onClick={() => handleChangeActiveAction('idle')}>
@@ -295,10 +335,10 @@ const Wilderness = () => {
                     <Typography variant='caption' fontSize={12} fontWeight='bold' color='textSecondary'>Back</Typography>
                   </Button>
                   <Stack direction='row' justifyContent='center' alignItems='center' gap={0.5}>
-                    <Typography variant='h5' fontSize={20} fontWeight='bold'>{isTrainerBattle ? 'Forfeit' : 'Run'}</Typography>
-                    {isTrainerBattle ? <FrontHand fontSize='medium' /> : <DirectionsRun fontSize='medium' />}
+                    <Typography variant='h5' fontSize={20} fontWeight='bold'>Run</Typography>
+                    <DirectionsRun fontSize='medium' />
                   </Stack>
-                  <Typography variant='body2' textAlign='center' mt={1}>{`Are you sure you want to ${isTrainerBattle ? 'forfeit' : 'run'}?`}</Typography>
+                  <Typography variant='body2' textAlign='center' mt={1}>{`Are you sure you want to run?`}</Typography>
                   <Stack direction='row' justifyContent='center' spacing={1} mt={2}>
                     <Button variant='contained'>
                       Yes  
@@ -313,7 +353,7 @@ const Wilderness = () => {
           )}
           <Grid size={8}>
             <Paper sx={{ display: 'flex', borderRadius: 2, p: 2, height: '100%', width: '100%' }}>
-              <Stack flexGrow={1} justifyContent='space-between' bgcolor='#eee' borderRadius={2}>
+              <Stack flexGrow={1} justifyContent='space-between' bgcolor='#eee' borderRadius={2} p={1}>
                 <Stack direction='row' justifyContent='flex-end' alignItems='center' spacing={1}>
                   <Box bgcolor='#ffff' width={150} borderRadius={2} py={1} px={1}>
                     <Stack flexGrow={1} spacing={0.5}>
@@ -330,10 +370,10 @@ const Wilderness = () => {
                       </Stack>
                     </Stack>
                   </Box>
-                  <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/1.png`} width={150} height={150} alt='wild-pokemon' style={{ margin: -10 }} />
+                  {/* <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/1.png`} width={150} height={150} alt='wild-pokemon' style={{ margin: -10 }} /> */}
                 </Stack>
                 <Stack direction='row' justifyContent='flex-start' alignItems='center' spacing={1}>
-                  <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/back/1.png`} width={150} height={150} alt='player-pokemon' style={{ margin: -10 }} />
+                  {/* <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/firered-leafgreen/back/1.png`} width={150} height={150} alt='player-pokemon' style={{ margin: -10 }} /> */}
                   <Box bgcolor='#ffff' width={150} borderRadius={2} py={1} px={1}>
                     <Stack flexGrow={1} spacing={0.5}>
                       <Stack direction='row' justifyContent='space-between'>

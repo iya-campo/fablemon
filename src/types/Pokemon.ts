@@ -1,8 +1,12 @@
+import { EVOLUTION_ITEMS, POKEBALL } from "@/constants/itemConstants";
+import { GENDER } from "@/constants/playerConstants";
+import { POKEMON_TYPES } from "@/constants/typeConstants";
+
 export interface Pokemon {
   id?: number;
   name: string;
   hp: number;
-  type: Type[];
+  type: PokemonTypeValue[];
   gender: Gender;
   level: number;
   pokeball: Pokeball;
@@ -20,7 +24,7 @@ export interface Pokemon {
 export interface Move {
   id?: number;
   name: string;
-  type: Type;
+  type: PokemonTypeValue;
   power: number;
   accuracy: number;
   pp: number;
@@ -40,31 +44,18 @@ export interface Evolution {
   itemRequirement: EvolutionItem | null;
 }
 
-export type Type = "NORMAL"
- | "WATER"
- | "FIRE"
- | "GRASS"
- | "ELECTRIC"
- | "ICE"
- | "FIGHT"
- | "POISON"
- | "GROUND"
- | "FLYING"
- | "PSYCHIC"
- | "BUG"
- | "ROCK"
- | "GHOST"
- | "DRAGON"
- | "DARK"
- | "STEEL"
- | "FAIRY"
+export type Gender = typeof GENDER;
+export type GenderKey = keyof Gender;
+export type GenderKeyValue = Gender[GenderKey];
 
-export type Gender = "MALE" | "FEMALE"
+export type Pokeball = typeof POKEBALL;
+export type PokeballKey = keyof Pokeball;
+export type PokeballKeyValue = Pokeball[PokeballKey];
 
-export type Pokeball = "POKEBALL" | "GREATBALL" | "ULTRABALL" | "MASTERBALL"
+export type EvolutionItem = typeof EVOLUTION_ITEMS
+export type EvolutionItemKey = keyof EvolutionItem;
+export type EvolutionKeyValue = EvolutionItem[EvolutionItemKey];
 
-export type EvolutionItem = "WATER_STONE" 
- | "FIRE_STONE" 
- | "THUNDER_STONE" 
- | "LEAF_STONE" 
- | "MOON_STONE"
+export type PokemonTypes = typeof POKEMON_TYPES;
+export type PokemonTypeKey = keyof PokemonTypes;
+export type PokemonTypeValue = PokemonTypes[PokemonTypeKey];

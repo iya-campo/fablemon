@@ -30,6 +30,13 @@ export const theme = createTheme({
           borderRadius: 8
         }
       }
-    }
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          minHeight: '1.2em'
+        }
+      }
+    },
   }
 });
