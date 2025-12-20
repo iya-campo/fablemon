@@ -28,7 +28,7 @@ const Pokedex = () => {
           <TextField 
             placeholder='Search Pokedex'
             fullWidth
-            size='small'
+            size='medium'
             slotProps={{
               input: {
                 startAdornment: <Search color='action' sx={{ mr: 1 }} />,

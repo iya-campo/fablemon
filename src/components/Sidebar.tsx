@@ -15,7 +15,7 @@ const Sidebar = () => {
   const toggleCollapse = () => setCollapsed(!collapsed);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box display={{ xs: 'none', sm: 'flex' }}>
       <IconButton color="primary" onClick={toggleCollapse} sx={{ position: 'absolute', left: 20, top: 20 }}>
         <Menu />
       </IconButton>

@@ -1,5 +1,6 @@
 // src/theme.ts
-import { createTheme } from '@mui/material/styles';
+
+import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   palette: {
@@ -28,15 +29,56 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8
-        }
-      }
+        },
+      },
     },
     MuiSelect: {
       styleOverrides: {
+        root: {
+          backgroundColor: 'white',
+        },
         select: {
-          minHeight: '1.2em'
-        }
-      }
+          minHeight: '1.2em',
+        },
+      },
     },
-  }
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+          boxShadow: '1px 1px 1px #aaa',
+        },
+        notchedOutline: {
+          border: 'none',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+        },
+      },
+      variants: [
+        {
+          props: { variant: 'custom' },
+          style: {
+            backgroundColor: '#7b1fa2',
+            color: 'white',
+            padding: '8px 16px',
+            '&:hover': {
+              backgroundColor: '#9c4dcc',
+            },
+          },
+        },
+      ],
+    },
+  },
 });

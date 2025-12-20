@@ -4,7 +4,7 @@ import { POKEMON_TYPES } from '@/constants/typeConstants'
 import { PokemonTypeKey } from '@/types/Pokemon'
 import { capitalize, getDualTypeEffectiveness, getEffectiveness } from '@/utils/commonUtils'
 import { Adjust, ArrowDownward, AutoStories, ChangeHistory, Clear, Details, NotInterested, RadioButtonChecked, Search, WaterDrop } from '@mui/icons-material'
-import { Box, Button, Divider, Grid, IconButton, InputAdornment, MenuItem, Paper, Select, SelectChangeEvent, Stack, SvgIcon, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material'
+import { Box, Button, Divider, Grid, IconButton, Input, InputAdornment, InputBase, MenuItem, Paper, Select, SelectChangeEvent, Stack, SvgIcon, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material'
 import TypeIndicator, { iconMapping } from '@/components/common/TypeIndicator'
 import { useState } from 'react';
 import Image from 'next/image';
@@ -37,7 +37,7 @@ const Handbook = () => {
         <Box width={40} height={3} bgcolor='#333'></Box>
       </Stack>
       <Typography variant='body2'>This chart shows how effective each type is against one another.</Typography>
-      <Stack direction='row' justifyContent='space-between' alignItems='flex-end' spacing={1}>
+      <Stack direction={{ md: 'column', lg: 'row' }}  justifyContent='space-between' spacing={1} rowGap={{ xs: 1 }}>
         <Stack direction='row' spacing={1}>
           <Select
             labelId="demo-simple-select-label"
@@ -53,7 +53,7 @@ const Handbook = () => {
                 {dualType && <SvgIcon htmlColor={iconMapping[dualType].color} fontSize='small'>{iconMapping[dualType].icon}</SvgIcon>}
               </InputAdornment>
             }
-            sx={{ backgroundColor: 'white', width: 250 }}
+            sx={{ width: 250 }}
           >
             <MenuItem value={''} disabled>
               <Typography variant='caption'>Select secondary type</Typography>
@@ -70,7 +70,7 @@ const Handbook = () => {
             <NotInterested />
           </IconButton>
         </Stack>
-        <Stack direction='row' spacing={1.5}>
+        <Stack direction={{ md: 'column', lg: 'row' }} spacing={{ xs: 0.5, lg: 1.5 }}>
           <Stack direction='row' alignItems='center' spacing={0.5}>
             <Clear htmlColor='#555' fontSize='small' />
             <Typography variant='body2'>Immune</Typography>
@@ -242,7 +242,7 @@ const Handbook = () => {
             </Select>
           </Grid>
           <Grid size={{ xs: 12, md: 'auto' }}>
-            <Button variant='contained' fullWidth sx={{ height: '100%' }}>
+            <Button variant='custom' fullWidth sx={{ height: '100%' }}>
               View All
             </Button>
           </Grid>
