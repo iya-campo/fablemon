@@ -1,7 +1,19 @@
 import { CatchingPokemon } from '@mui/icons-material'
 import { Box, Button, Modal, Paper, Stack, Typography } from '@mui/material'
+import Image from 'next/image';
+import { Dispatch, SetStateAction } from 'react';
 
-const CommenceBattle = ({ open, handleClose, handleStartBattle }: any) => {
+interface CommenceBattleProps {
+  open: boolean;
+  handleClose: Dispatch<SetStateAction<boolean>>;
+  handleStartBattle: () => void;
+  trainerType?: 'standard' | 'challenge';
+  name: string;
+  team: string[];
+  img?: string;
+}
+
+const CommenceBattle = ({ open, handleClose, handleStartBattle, trainerType='standard', name='Trainer', team=[], img }: CommenceBattleProps) => {
 
   return (
     <Modal
@@ -13,13 +25,18 @@ const CommenceBattle = ({ open, handleClose, handleStartBattle }: any) => {
     >
       <Paper sx={{ width: 400, p: 4 }}>
         <Stack direction='row' spacing={4}>
-          <Box width={100} bgcolor='#ddd' borderRadius={2} sx={{ backgroundImage: `url(https://i.dstatic.com/images/trainers/youngster2.webp)`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
+          <Box width={100} borderRadius={2} sx={{ backgroundImage: `url(${img})`, backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
           <Stack direction='column' alignItems='center' flexGrow={1}>
             <Stack direction='row' alignItems='center' gap={0.25}>
-              <Typography variant='h6' fontWeight='bold'>Youngster Joey</Typography>
-              <Box height={24} width={24} sx={{ backgroundImage: `url(https://static.pokemon-vortex.com/v6/images/trainer_sprites/6.png)`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
+              <Typography variant='h6' fontWeight='bold'>{name}</Typography>
+              {/* <Box height={24} width={24} sx={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} /> */}
             </Stack>
             <Typography variant='body2'>has challenged you to a battle!</Typography>
+            {trainerType === 'challenge' && (
+              <Stack direction='row' my={2}>
+                {team.map((pokemon, index) => <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iv/diamond-pearl/${pokemon}.png`} width={50} height={50} alt={`brock-pokemon-${index}`} />)}                
+              </Stack>
+            )}
             <Button variant='contained' size='large' fullWidth sx={{ display: 'flex', gap: 1, mt: 4 }} onClick={handleStartBattle}>
               <Typography variant='button'>Battle</Typography>
               <CatchingPokemon fontSize='medium' />

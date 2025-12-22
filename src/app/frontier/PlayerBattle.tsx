@@ -1,14 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Chip, Grid, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Modal, Paper, Stack, Typography } from '@mui/material'
+import { Box, Button, Chip, Grid, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Modal, Paper, Stack, Typography } from '@mui/material'
 import Image from 'next/image';
-import { ArrowBack, BusinessCenter, CatchingPokemon, FrontHand, MedicationLiquid, MoreVert, SportsMma } from '@mui/icons-material';
+import { ArrowBack, BusinessCenter, CatchingPokemon, FrontHand, Loop, MedicationLiquid, MoreVert, SportsMma } from '@mui/icons-material';
 import EncounterActions from '@/components/EncounterActions';
 
 const PlayerBattle = ({ battleStart, handleEndBattle }: any) => {
   const [activeAction, setActiveAction] = useState('idle');
   const [itemSelected, setItemSelected] = useState('');
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
   const handleChangeActiveAction = (newAction: string) => {
     setActiveAction(newAction);
@@ -16,6 +18,13 @@ const PlayerBattle = ({ battleStart, handleEndBattle }: any) => {
   }
 
   useEffect(() => setActiveAction('idle'), [handleEndBattle]);
+    
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
   return (
     <Modal
@@ -187,6 +196,23 @@ const PlayerBattle = ({ battleStart, handleEndBattle }: any) => {
                         <Typography variant='body2' textAlign='center' mt={1}>Select a Pokemon to switch out.</Typography>
                         </Grid>
                         <Grid container size={6} spacing={1}>
+                        <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            elevation={1}
+                            slotProps={{
+                                list: {
+                                    'aria-labelledby': 'basic-button',
+                                },
+                            }}
+                        >
+                            <MenuItem onClick={handleClose}>
+                                <Typography variant='body2' mr={1}>Switch Pokemon</Typography>
+                                <Loop fontSize='small' />
+                            </MenuItem>
+                        </Menu>
                         <Box sx={{ display: 'flex', gap: 1, bgcolor: '#ddd', px: 1, py: 1, width: '100%', height: 'fit-content' }} borderRadius={2}>
                             <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif`} width={32} height={32} alt='party-pokemon' />
                             <Stack flexGrow={1}>
@@ -194,8 +220,13 @@ const PlayerBattle = ({ battleStart, handleEndBattle }: any) => {
                             <Box width='100%' height={2} bgcolor='green' borderRadius={50} />
                             <Typography variant='caption' fontSize={10} textAlign='end'>50/50</Typography>
                             </Stack>
-                            <IconButton size='small'>
-                            <MoreVert fontSize='small' />
+                            <IconButton size='small'
+                                id="basic-button"
+                                aria-controls={open ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick}>
+                                <MoreVert fontSize='small' />
                             </IconButton>
                         </Box>
                         <Box sx={{ display: 'flex', gap: 1, bgcolor: '#ddd', px: 1, py: 1, width: '100%', height: 'fit-content' }} borderRadius={2}>
@@ -205,8 +236,13 @@ const PlayerBattle = ({ battleStart, handleEndBattle }: any) => {
                             <Box width='100%' height={2} bgcolor='green' borderRadius={50} />
                             <Typography variant='caption' fontSize={10} textAlign='end'>50/50</Typography>
                             </Stack>
-                            <IconButton size='small'>
-                            <MoreVert fontSize='small' />
+                            <IconButton size='small'
+                                id="basic-button"
+                                aria-controls={open ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick}>
+                                <MoreVert fontSize='small' />
                             </IconButton>
                         </Box>
                         <Box sx={{ display: 'flex', gap: 1, bgcolor: '#ddd', px: 1, py: 1, width: '100%', height: 'fit-content' }} borderRadius={2}>
@@ -216,8 +252,13 @@ const PlayerBattle = ({ battleStart, handleEndBattle }: any) => {
                             <Box width='100%' height={2} bgcolor='green' borderRadius={50} />
                             <Typography variant='caption' fontSize={10} textAlign='end'>50/50</Typography>
                             </Stack>
-                            <IconButton size='small'>
-                            <MoreVert fontSize='small' />
+                            <IconButton size='small'
+                                id="basic-button"
+                                aria-controls={open ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick}>
+                                <MoreVert fontSize='small' />
                             </IconButton>
                         </Box>
                         </Grid>
@@ -241,10 +282,10 @@ const PlayerBattle = ({ battleStart, handleEndBattle }: any) => {
                         <Typography variant='body2' textAlign='center' mt={1}>{`Are you sure you want to forfeit?`}</Typography>
                         <Stack direction='row' justifyContent='center' spacing={1} mt={2}>
                             <Button variant='contained' onClick={handleEndBattle}>
-                            Yes  
+                              Yes  
                             </Button>
                             <Button variant='contained' onClick={() => handleChangeActiveAction('idle')}>
-                            No
+                              No
                             </Button>
                         </Stack>
                         </Grid>

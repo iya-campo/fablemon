@@ -5,7 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       'img.pokemondb.net', 
-      'raw.githubusercontent.com' 
+      'raw.githubusercontent.com',
+      'archives.bulbagarden.net',
+      'bulbapedia.bulbagarden.net',
     ],
   },
 };

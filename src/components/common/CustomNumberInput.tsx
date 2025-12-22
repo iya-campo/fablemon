@@ -42,15 +42,16 @@ const CustomNumberInput = ({ value=0, setValue, fullWidth=false }: CustomerNumbe
             fontSize: 14,
             border: 'none',
             textAlign: 'center',
-            '-moz-appearance': 'textfield',
+            
+            MozAppearance: 'textfield',
             'appearance': 'textfield',
 
             '&::-webkit-outer-spin-button': {
-              '-webkit-appearance': 'none',
+              WebkitAppearance: 'none',
               margin: 0,
             },
             '&::-webkit-inner-spin-button': {
-              '-webkit-appearance': 'none',
+              WebkitAppearance: 'none',
               margin: 0,
             },
             px: 0

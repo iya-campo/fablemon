@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, SvgIcon, Typography } from '@mui/material';
+import { Stack, SvgIcon, Typography } from '@mui/material';
 import { AcUnit, BugReport, Cake, Coronavirus, DarkMode, Face3, FlashOn, Grass, Hive, Landscape, Rocket, Settings, SportsMma, Storm, TripOrigin, Twitter, WaterDrop, Whatshot } from '@mui/icons-material';
 import { PokemonTypeKey } from '@/types/Pokemon';
 import { capitalize } from '@/utils/commonUtils';
@@ -41,26 +41,24 @@ const TypeIndicator = ({ variant='tag', name, fullWidth=false }: TypeIndicatorPr
   return (
     <>
       {(variant === 'tag' || variant === 'chip') && (
-        <Typography 
-          variant='caption' 
-          textAlign='center' 
-          color='white' 
-          borderRadius={1} 
-          textTransform='uppercase'
-          fontWeight='bold' 
-          fontSize={10} 
-          width={fullWidth ? 'auto' : 85}
-          p={0.5} 
-          bgcolor={iconMapping[name.toLowerCase()].color} 
-          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}
-        >
+        <Stack direction='row' justifyContent='center' alignItems='center' spacing={0.5} width={fullWidth ? 'auto' : 85} borderRadius={1} bgcolor={iconMapping[name.toLowerCase()].color} p={0.5}>
           {variant === 'chip' && (
-            <SvgIcon htmlColor='white' sx={{ fontSize: 16 }}>
+            <SvgIcon htmlColor='white' sx={{ fontSize: 16, display: { sm: 'block', md: 'none', lg: 'block' } }}>
               {iconMapping[name.toLowerCase()].icon}
             </SvgIcon>
           )}
-          {capitalize(name)}
-        </Typography>
+          <Typography  
+            display='inline'
+            color='white' 
+            variant='caption' 
+            textAlign='center' 
+            textTransform='uppercase'
+            fontWeight='bold' 
+            fontSize={10} 
+          >
+            {capitalize(name)}
+          </Typography>
+        </Stack>
       )}
       {variant === 'icon' && (
         <SvgIcon htmlColor='white' sx={{ bgcolor: iconMapping[name.toLowerCase()].color, borderRadius: 50, p: 0.5 }}>

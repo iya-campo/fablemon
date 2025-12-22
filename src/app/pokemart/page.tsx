@@ -4,13 +4,10 @@ import React, { useState } from 'react'
 import CustomNumberInput from '@/components/common/CustomNumberInput'
 import { Album, AttachMoney, BookmarkBorder, BusinessCenter, CatchingPokemon, CurrencyRuble, Dashboard, Delete, DeleteOutline, Diamond, Medication, Search, ShoppingCart, Storefront } from '@mui/icons-material'
 import { Box, Button, Divider, Grid, IconButton, Paper, Stack, TextField, Typography } from '@mui/material'
+import Image from 'next/image';
 
 const PokeMart = () => {
   const [value, setValue] = useState(0);
-  {/* TO DO: 
-    - Buy/Sell Poke Mart
-    - Browse Bag
-  */}
 
   return (
     <Stack gap={2} mb={6}>
@@ -20,7 +17,7 @@ const PokeMart = () => {
       </Stack>
       <Grid container size={12} spacing={4}>
         <Grid container size={8} direction='column' height='fit-content' spacing={2.5}>
-          <Stack direction='row' flexGrow={1} spacing={1}>
+          <Stack direction='row' flexGrow={1} spacing={2}>
             <TextField 
               placeholder='Search Poke Mart'
               size='medium'
@@ -36,11 +33,11 @@ const PokeMart = () => {
             </Button>
           </Stack>
           <Stack direction='row' spacing={2} sx={{ '& div': { flexGrow: 1 } }}>
-            <Paper sx={{ display: 'flex', flexDirection: 'column', p: 2, gap: 2, cursor: 'pointer', '&:hover': { bgcolor: '#f7f7f7ff' } }}>
-              <Dashboard fontSize='large' color='primary' />
+            <Paper sx={{ display: 'flex', flexDirection: 'column', p: 2, gap: 2, cursor: 'pointer', bgcolor: 'primary.main', '&:hover': { bgcolor: 'primary.dark' } }}>
+              <Dashboard fontSize='large' sx={{ color: 'white' }} />
               <Stack>
-                <Typography variant='body2' fontWeight='bold'>All</Typography>
-                <Typography variant='body2' fontWeight='bold' color='textSecondary'>50 Items</Typography>
+                <Typography variant='body2' fontWeight='bold' color='white'>All</Typography>
+                <Typography variant='body2' color='white'>50 Items</Typography>
               </Stack>
             </Paper>
             <Paper sx={{ display: 'flex', flexDirection: 'column', p: 2, gap: 2, cursor: 'pointer', '&:hover': { bgcolor: '#f7f7f7ff' } }}>
@@ -75,7 +72,9 @@ const PokeMart = () => {
           <Grid container size={12} spacing={4}>
             <Grid size={4}>
               <Paper sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
-                <Box height={100} bgcolor='#ddd' />
+                <Box display='flex' justifyContent='center'>
+                  <Image src={`/images/pokeball.png`} width={100} height={100} alt='bag-item' />
+                </Box>
                 <Typography variant='body1' fontWeight='bold' mt={1} mb={0.5}>Pokeball</Typography>
                 <Stack direction='row' justifyContent='space-between' mb={2}>
                   <Stack direction='row' alignItems='center'>
@@ -94,7 +93,9 @@ const PokeMart = () => {
             </Grid>
             <Grid size={4}>
               <Paper sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
-                <Box height={100} bgcolor='#ddd' />
+                <Box display='flex' justifyContent='center'>
+                  <Image src={`/images/pokeball.png`} width={100} height={100} alt='bag-item' />
+                </Box>
                 <Typography variant='body1' fontWeight='bold' mt={1} mb={0.5}>Pokeball</Typography>
                 <Stack direction='row' justifyContent='space-between' mb={2}>
                   <Stack direction='row' alignItems='center'>
@@ -111,7 +112,72 @@ const PokeMart = () => {
             </Grid>
             <Grid size={4}>
               <Paper sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
-                <Box height={100} bgcolor='#ddd' />
+                <Box display='flex' justifyContent='center'>
+                  <Image src={`/images/pokeball.png`} width={100} height={100} alt='bag-item' />
+                </Box>
+                <Typography variant='body1' fontWeight='bold' mt={1} mb={0.5}>Pokeball</Typography>
+                <Stack direction='row' justifyContent='space-between' mb={2}>
+                  <Stack direction='row' alignItems='center'>
+                    <AttachMoney color='success' fontSize='small' />
+                    <Typography variant='body2'>300</Typography>
+                  </Stack>
+                  <Stack direction='row' alignItems='center' gap={0.5}>
+                    <BusinessCenter color='action' fontSize='small' />
+                    <Typography variant='body2'>1</Typography>
+                  </Stack>
+                </Stack>
+                <Button variant='contained' size='small'>
+                  <Typography variant='caption' color='white'>Add to Cart</Typography>
+                </Button>
+              </Paper>
+            </Grid>
+            <Grid size={4}>
+              <Paper sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
+                <Box display='flex' justifyContent='center'>
+                  <Image src={`/images/super-potion.png`} width={100} height={100} alt='bag-item' />
+                </Box>
+                <Typography variant='body1' fontWeight='bold' mt={1} mb={0.5}>Pokeball</Typography>
+                <Stack direction='row' justifyContent='space-between' mb={2}>
+                  <Stack direction='row' alignItems='center'>
+                    <AttachMoney color='success' fontSize='small' />
+                    <Typography variant='body2'>300</Typography>
+                  </Stack>
+                  <Stack direction='row' alignItems='center' gap={0.5}>
+                    <BusinessCenter color='action' fontSize='small' />
+                    <Typography variant='body2'>1</Typography>
+                  </Stack>
+                </Stack>
+                <Button variant='contained' size='small'>
+                  <Typography variant='caption' color='white'>Add to Cart</Typography>
+                </Button>
+              </Paper>
+            </Grid>
+            <Grid size={4}>
+              <Paper sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
+                <Box display='flex' justifyContent='center'>
+                  <Image src={`/images/super-potion.png`} width={100} height={100} alt='bag-item' />
+                </Box>
+                <Typography variant='body1' fontWeight='bold' mt={1} mb={0.5}>Pokeball</Typography>
+                <Stack direction='row' justifyContent='space-between' mb={2}>
+                  <Stack direction='row' alignItems='center'>
+                    <AttachMoney color='success' fontSize='small' />
+                    <Typography variant='body2'>300</Typography>
+                  </Stack>
+                  <Stack direction='row' alignItems='center' gap={0.5}>
+                    <BusinessCenter color='action' fontSize='small' />
+                    <Typography variant='body2'>1</Typography>
+                  </Stack>
+                </Stack>
+                <Button variant='contained' size='small'>
+                  <Typography variant='caption' color='white'>Add to Cart</Typography>
+                </Button>
+              </Paper>
+            </Grid>
+            <Grid size={4}>
+              <Paper sx={{ display: 'flex', flexDirection: 'column', p: 2 }}>
+                <Box display='flex' justifyContent='center'>
+                  <Image src={`/images/super-potion.png`} width={100} height={100} alt='bag-item' />
+                </Box>
                 <Typography variant='body1' fontWeight='bold' mt={1} mb={0.5}>Pokeball</Typography>
                 <Stack direction='row' justifyContent='space-between' mb={2}>
                   <Stack direction='row' alignItems='center'>
@@ -130,7 +196,7 @@ const PokeMart = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container size={4}>
+        <Grid container size={4} height='fit-content'>
           <Paper sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             <Stack gap={0.5} my={2} py={1} px={2}>
               <Typography variant='h5' fontWeight='bold' sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -138,12 +204,10 @@ const PokeMart = () => {
                 <ShoppingCart />
               </Typography>
               <Divider />
-              <Stack spacing={1} mt={2} maxHeight={600} overflow='auto'>
-                <Grid container size={12} border='1px solid #ddd' borderRadius={2} p={2} spacing={1}>
-                  <Grid size={3}>
-                    <Box height={70} bgcolor='#ddd'></Box>
-                  </Grid>
-                  <Grid size='grow'>
+              <Stack spacing={2} mt={2} maxHeight={500} overflow='auto' flexGrow={1}>
+                <Grid container size={12} border='1px solid #ddd' borderRadius={2} p={2}>
+                  <Image src={`/images/pokeball.png`} width={50} height={50} alt='bag-item' />
+                  <Grid size='grow' ml={1}>
                     <Grid container size={12} direction='row' justifyContent='space-between' alignItems='flex-start'>
                       <Stack height='fit-content'>
                         <Typography variant='body1' fontWeight='bold'>Pokeball</Typography>
@@ -162,14 +226,12 @@ const PokeMart = () => {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid container size={12} border='1px solid #ddd' borderRadius={2} p={2} spacing={1}>
-                  <Grid size={3}>
-                    <Box height={70} bgcolor='#ddd'></Box>
-                  </Grid>
-                  <Grid size='grow'>
+                <Grid container size={12} border='1px solid #ddd' borderRadius={2} p={2}>
+                  <Image src={`/images/super-potion.png`} width={50} height={50} alt='bag-item' />
+                  <Grid size='grow' ml={1}>
                     <Grid container size={12} direction='row' justifyContent='space-between' alignItems='flex-start'>
                       <Stack height='fit-content'>
-                        <Typography variant='body1' fontWeight='bold'>Pokeball</Typography>
+                        <Typography variant='body1' fontWeight='bold'>Super Potion</Typography>
                         <Stack direction='row' alignItems='center'>
                           <AttachMoney color='success' fontSize='small' />
                           <Typography variant='body2'>300</Typography>

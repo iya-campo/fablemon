@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import { Drawer, List, ListItem, Divider, IconButton, Typography, Box, Avatar, Stack } from '@mui/material';
-import { Menu, CatchingPokemon, Castle, ChromeReaderMode, CrueltyFree, Forest, Storefront, ExitToApp, MoreVert, Settings, Loop, Token, AutoStories } from '@mui/icons-material';
+import { Menu, CatchingPokemon, Castle, ChromeReaderMode, CrueltyFree, Forest, Storefront, ExitToApp, MoreVert, Settings, Loop, AutoStories, EmojiEvents } from '@mui/icons-material';
 import Image from 'next/image';
 import style from './Sidebar.module.css';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import SidebarLink from './SidebarLink';
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -56,82 +57,103 @@ const Sidebar = () => {
             </IconButton>
           </Box>
           <Divider />
-          <List sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, position: 'relative' }}>
-            <Link href='/pokedex'>
-                <ListItem className={style['list-item']} sx={{ bgcolor: pathname === 'pokedex' ? '#ddd' : 'inherit' }}>
-                    <ChromeReaderMode sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1' minWidth={150}>Pokedex</Typography>}
-                </ListItem>
-            </Link>
-            <Link href='/pokecenter'>
-                <ListItem className={style['list-item']} sx={{ bgcolor: pathname === 'pokecenter' ? '#ddd' : 'inherit' }}>
-                    <CatchingPokemon sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1' minWidth={150}>Pokemon Center</Typography>}
-                </ListItem>
-            </Link>
-            <Link href='/wilderness'>
-                <ListItem className={style['list-item']} sx={{ bgcolor: pathname === 'wilderness' ? '#ddd' : 'inherit' }}>
-                    <Forest sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1' minWidth={150}>Wilderness</Typography>}
-                </ListItem>
-            </Link>
-            <Link href='/handbook'>
-                <ListItem className={style['list-item']} sx={{ bgcolor: pathname === 'handbook' ? '#ddd' : 'inherit' }}>
-                    <AutoStories sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1' minWidth={150}>Handbook</Typography>}
-                </ListItem>
-            </Link>
-            <Link href='/pokemart'>
-                <ListItem className={style['list-item']} sx={{ bgcolor: pathname === 'pokemart' ? '#ddd' : 'inherit' }}>
-                    <Storefront sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1' minWidth={150}>Poke Mart</Typography>}
-                </ListItem>
-            </Link>
-            <Link href='/daycare'>
-                <ListItem className={style['list-item']} sx={{ bgcolor: pathname === 'daycare' ? '#ddd' : 'inherit' }}>
-                    <CrueltyFree sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1' minWidth={150}>Day Care</Typography>}
-                </ListItem>
-            </Link>
-            <Link href='/tradecenter'>
-                <ListItem className={style['list-item']} sx={{ bgcolor: pathname === 'tradecenter' ? '#ddd' : 'inherit' }}>
-                    <Loop sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1' minWidth={150}>Trade Center</Typography>}
-                </ListItem>
-            </Link>
-            <Link href='/gyms'>
-                <ListItem className={style['list-item']} sx={{ bgcolor: pathname === 'gyms' ? '#ddd' : 'inherit' }}>
-                    <Token sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1' minWidth={150}>Gyms</Typography>}
-                </ListItem>
-            </Link>
-            <Link href='/frontier'>
-                <ListItem className={style['list-item']} sx={{ bgcolor: pathname === 'frontier' ? '#ddd' : 'inherit' }}>
-                    <Castle sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1' minWidth={150}>Battle Frontier</Typography>}
-                </ListItem>
-            </Link>
+          <List sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, position: 'relative', px: 1 }}>
+            <SidebarLink
+              collapsed={collapsed}
+							name='Pokedex'
+							url='/pokedex'
+							icon={<ChromeReaderMode />}
+            />
+            <SidebarLink
+              collapsed={collapsed}
+							name='Pokemon Center'
+							url='/pokecenter'
+							icon={<CatchingPokemon />}
+            />
+            <SidebarLink
+              collapsed={collapsed}
+							name='Wilderness'
+							url='/wilderness'
+							icon={<Forest />}
+            />
+            <SidebarLink
+              collapsed={collapsed}
+							name='Handbook'
+							url='/handbook'
+							icon={<AutoStories />}
+            />
+            <SidebarLink
+              collapsed={collapsed}
+							name='Poke Mart'
+							url='/pokemart'
+							icon={<Storefront />}
+            />
+            <SidebarLink
+              collapsed={collapsed}
+							name='Day Care'
+							url='/daycare'
+							icon={<CrueltyFree />}
+            />
+            <SidebarLink
+              collapsed={collapsed}
+							name='Trade Center'
+							url='/tradecenter'
+							icon={<Loop />}
+            />
+            <SidebarLink
+              collapsed={collapsed}
+							name='Pokemon League'
+							url='/league'
+							icon={<EmojiEvents />}
+            />
+            <SidebarLink
+              collapsed={collapsed}
+							name='Battle Frontier'
+							url='/frontier'
+							icon={<Castle />}
+            />
             <Divider />
+            {/* <SidebarLink
+              collapsed={collapsed}
+							name='Handbook'
+							url='/handbook'
+							icon={<AutoStories />}
+							nested
+							sublinks={[{
+								name: 'Type Chart',
+								url: '/type-chart'
+							}]}
+            /> */}
+            {/* <SidebarLink
+              collapsed={collapsed}
+							name='Tools'
+							url='/tools'
+							icon={<Build />}
+            /> */}
             <Stack className={style['bottom-section']}>
-                <ListItem className={style['list-item']}>
-                    <Settings sx={{ mr: collapsed ? '0' : '10px' }} />
-                    {!collapsed && <Typography variant='body1'>Settings</Typography>}
-                </ListItem>
+                <SidebarLink
+                  collapsed={collapsed}
+                  name='Settings'
+                  url='/settings'
+                  icon={<Settings />}
+                />
                 <ListItem className={style['list-item']}>
                     <ExitToApp sx={{ mr: collapsed ? '0' : '10px' }} />
                     {!collapsed && <Typography variant='body1'>Logout</Typography>}
                 </ListItem>
                 <Stack className={style['profile-section']} direction='row' bgcolor='#ddd'>
+                  <Link href='/profile'>
                     <Avatar sx={{ bgcolor: '#555' }} />
-                    {!collapsed && <>
-                        <Stack>
-                            <Typography variant='body2'>John Smith</Typography>
-                            <Typography variant='caption'>johnsmith@gmail.com</Typography>
-                        </Stack>
-                        <IconButton sx={{ p: 0 }}>
-                            <MoreVert />
-                        </IconButton>
-                    </>}
+                  </Link>
+                  {!collapsed && <>
+                    <Stack width={240} ml={2}>
+                      <Typography variant='body2'>John Smith</Typography>
+                      <Typography variant='caption'>johnsmith@gmail.com</Typography>
+                    </Stack>
+                    <IconButton sx={{ p: 0 }}>
+                      <MoreVert />
+                    </IconButton>
+                  </>}
                 </Stack>
             </Stack>
           </List>

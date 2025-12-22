@@ -11,6 +11,7 @@ import { iconMapping } from '@/components/common/TypeIndicator';
 import { POKEMON_TYPES } from '@/constants/typeConstants';
 
 const PokemonCenter = () => {
+  const [healStatus, setHealStatus] = React.useState('initial');
   const [type, setType] = React.useState('');
   const [ability, setAbility] = React.useState('');
   const [popperEl, setPopperEl] = React.useState<HTMLElement | null>(null);
@@ -18,6 +19,13 @@ const PokemonCenter = () => {
   const [menuType, setMenuType] = React.useState('');
   const [openDetails, setOpenDetails] = React.useState(false);
   const openMenu = Boolean(menuEl);
+
+  const handleHealing = () => {
+    setHealStatus('healing');
+    setTimeout(() => {
+      setHealStatus('healed');
+    }, 2500);
+  };
   
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>, type: string) => {
     setMenuEl(event.currentTarget);
@@ -51,37 +59,36 @@ const PokemonCenter = () => {
           <Typography variant='button' fontSize={14} fontWeight='bold'>Pokemon Center</Typography>
         </Stack>
         <Grid container size={12} mt={1}>
-            <Paper elevation={1} sx={{ display: 'flex', height: '100%', width: '100%', p: 2 }}>
-              <Grid size={{ xs: 12, md: 6 }} bgcolor='#ddd' borderRadius={2} sx={{ backgroundImage: `url(/images/pokemon-center.jpg)`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }} />
-              <Grid container size={{ xs: 12, md: 6 }} direction='column' justifyContent='center' alignItems='center' px={4} spacing={2}>
-                <Typography variant='body2'>Welcome to the Pokémon Center! Bring your Pokémon to the counter to heal, and our staff will take care of the rest. While you wait, feel free to relax and get ready for your next challenge!</Typography>
-                <Grid container size={12} my={1} justifyContent='center' alignItems={{ sm: 'center', md: 'flex-end' }}>
-                    <Grid container size={{ sm: 4, md: 5 }} justifyContent='flex-end'>
-                      <Box height={120} width={120} sx={{ backgroundImage: `url(/sprites/nurse-joy.png)`, backgroundPosition: { xs: 'center', sm: 'right' }, backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
-                    </Grid>
-                    <Grid container size={{ sm: 4, md: 2 }} display={{ xs: 'none', sm: 'flex' }} justifyContent='center' alignSelf='center' spacing={0.5}>
-                      <Grid container direction='column' size={6} spacing={0.5} alignItems='center' height='fit-content' width='fit-content'>
-                        <Box height={20} width={20} sx={{ backgroundImage: `url(/sprites/pokeball.png)`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
-                        <Box height={20} width={20} sx={{ backgroundImage: `url(/sprites/pokeball.png)`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
-                        <Box height={20} width={20} sx={{ backgroundImage: `url(/sprites/pokeball.png)`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
-                      </Grid>
-                      <Grid container direction='column' size={6} spacing={0.5} alignItems='center' height='fit-content' width='fit-content'>
-                        <Box height={20} width={20} sx={{ backgroundImage: `url(/sprites/pokeball.png)`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
-                        <Box height={20} width={20} sx={{ backgroundImage: `url(/sprites/pokeball.png)`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
-                        <Box height={20} width={20} sx={{ backgroundImage: `url(/sprites/pokeball.png)`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
-                      </Grid>
-                    </Grid>
-                    <Grid container size={{ sm: 4, md: 5 }} justifyContent='flex-start' alignItems='flex-end' display={{ xs: 'none', sm: 'flex' }}>
-                      <Box height={110} width={110} sx={{ backgroundImage: `url(/sprites/female-player.png)`, backgroundPosition: 'left', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
-                    </Grid>
+          <Paper elevation={1} sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, height: '100%', width: '100%', rowGap: 2, p: { xs: 4, md: 2 } }}>
+            <Grid size={{ xs: 12, md: 6 }} minHeight={200} bgcolor='#ddd' borderRadius={2} sx={{ backgroundImage: `url(/images/pokemon-center.jpg)`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }} />
+            <Grid container size={{ xs: 12, md: 6 }} direction='column' justifyContent='center' alignItems='center' px={4} spacing={1}>
+              <Typography variant='body1' fontWeight='bold'>Welcome to the Pokémon Center!</Typography>
+              <Typography variant='body2' textAlign='center'>Bring your Pokémon to the counter to heal, and our staff will take care of the rest. While you wait, feel free to relax and get ready for your next challenge!</Typography>
+              <Grid container size={12} my={1} justifyContent='center' alignItems={{ sm: 'center', md: 'flex-end' }}>
+                <Grid container size={{ sm: 4, md: 5 }} justifyContent='center'>
+                  <Box height={120} width={120} sx={{ backgroundImage: `url(/sprites/nurse-joy.png)`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
                 </Grid>
-                <Typography variant='body1'>Nurse your Pokemon to full health?</Typography>
-                <Button variant='contained' size='large' sx={{ display: 'flex', gap: 1 }}>
-                  <LocalHospital fontSize='medium' />
-                  <Typography variant='button'>Heal Pokemon</Typography>
-                </Button>
               </Grid>
-            </Paper>
+              <Typography variant='body1' fontWeight='bold' mb={0.5} textAlign='center'>Nurse Pokemon to full health?</Typography>
+              <Button variant='contained' size='large' disabled={healStatus !== 'initial'} sx={{ display: 'flex', gap: 1 }} onClick={handleHealing}>
+                {healStatus === 'initial' && (
+                  <>
+                    <Typography variant='button'>Heal Pokemon</Typography>
+                    <LocalHospital fontSize='medium' />
+                  </>
+                )}
+                {healStatus === 'healing' && (
+                  <>
+                    <Typography variant='button'>Deploying Chanseys</Typography>
+                    <Box display='flex' alignItems='flex-end' height={30} width={30} sx={{ backgroundImage: `url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/113.gif)`, backgroundSize: 'contain', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }} />
+                  </>
+                )}
+                {healStatus === 'healed' && (
+                  <Typography variant='button'>Party Healed!</Typography>
+                )}
+              </Button>
+            </Grid>
+          </Paper>
         </Grid>
         <Stack gap={0.5} mt={2}>
           <Typography variant='h5' fontWeight='bold'>PC Storage</Typography>
@@ -199,7 +206,7 @@ const PokemonCenter = () => {
                       startAdornment: <Search color='action' sx={{ mr: 1 }} />,
                     },
                   }}
-                  sx={{ height: '100%', backgroundColor: 'white', '& .MuiInputBase-input': { fontSize: '14px', height: '100%' } }} 
+                  sx={{ backgroundColor: 'white', '& .MuiInputBase-input': { fontSize: '14px' } }} 
                 />
               </Grid>
               <Grid  size={{ xs: 12, sm: 6, md: 3 }}>
@@ -218,7 +225,7 @@ const PokemonCenter = () => {
                       {type && <SvgIcon htmlColor={iconMapping[type].color} fontSize='small'>{iconMapping[type].icon}</SvgIcon>}
                     </InputAdornment>
                   }
-                  sx={{ backgroundColor: 'white', height: '100%' }}
+                  sx={{ backgroundColor: 'white' }}
                 >
                   <MenuItem value={''} disabled>
                     <Typography variant='caption'>Select type</Typography>
@@ -239,7 +246,7 @@ const PokemonCenter = () => {
                   value={ability ? ability : 'Select ability'}
                   fullWidth
                   size='small'
-                  onChange={handleTypeChange}
+                  onChange={handleAbilityChange}
                   renderValue={(val) => (
                     <Typography variant='body2'>{capitalize(val)}</Typography>
                   )}
@@ -248,19 +255,19 @@ const PokemonCenter = () => {
                       {/* {type && <SvgIcon htmlColor={iconMapping[type].color} fontSize='small'>{iconMapping[type].icon}</SvgIcon>} */}
                     </InputAdornment>
                   }
-                  sx={{ backgroundColor: 'white', height: '100%' }}
+                  sx={{ backgroundColor: 'white' }}
                 >
                   <MenuItem value={''} disabled>
                     <Typography variant='caption'>Select ability</Typography>
                   </MenuItem>
                   <Divider />
-                  <MenuItem key={0} value={type}>
+                  <MenuItem key={0} value={'ability'}>
                     <Typography variant='body2' ml={1}>Ability</Typography>
                   </MenuItem>
                 </Select>
               </Grid>
               <Grid size={{ xs: 12, md: 'auto' }}>
-                <Button variant='contained' fullWidth sx={{ height: '100%' }}>
+                <Button variant='contained' fullWidth>
                   <RestartAlt />
                 </Button>
               </Grid>

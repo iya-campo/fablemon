@@ -1,3 +1,4 @@
+import TypeIndicator from '@/components/common/TypeIndicator'
 import { AutoAwesome, SportsMma } from '@mui/icons-material'
 import { Box, Button, Chip, Grid, Paper, Popper, Stack, Typography } from '@mui/material'
 
@@ -6,13 +7,13 @@ const PokemonPopper = ({ popperEl }: any) => {
     <Popper open={Boolean(popperEl)} anchorEl={popperEl} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Paper sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 3 }}>
         <Stack width={350}>
-          <Stack direction='row' justifyContent='space-between' alignItems='center' borderBottom='1px solid #ddd' pb={1}>
+          <Stack direction='row' justifyContent='space-between' alignItems='flex-start' borderBottom='1px solid #ddd' pb={1}>
             <Stack>
               <Typography variant='h6' fontWeight='bold'>Squirtle</Typography>
               <Typography variant='button' color='textSecondary' fontWeight='bold'>#007</Typography>
             </Stack>
             <Stack direction='row' gap={1}>
-              <Typography variant='caption' textAlign='center' bgcolor='skyblue' color='#fff' px={2} py={1} borderRadius={1} fontSize={12} fontWeight='bold' textTransform='uppercase'>Water</Typography>
+            <TypeIndicator variant='chip' name='water' />
             </Stack>
           </Stack>
           <Stack direction='row' alignItems='center' spacing={4} pt={2}>

@@ -1,10 +1,7 @@
-.list-item {
-    margin-bottom: 8px;
-}
-
 .list-item:hover {
     background-color: #ddd;
     cursor: pointer;
+    border-radius: 8;
 }
 
 .bottom-section {
@@ -14,6 +11,7 @@
     width: 100%;
     position: absolute;
     bottom: 0;
+    left: 0;
 }
 
 .profile-section {

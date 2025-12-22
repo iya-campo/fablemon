@@ -1,5 +1,6 @@
 "use client";
 
+import TypeIndicator from '@/components/common/TypeIndicator';
 import { AutoAwesome, Equalizer, Male, SportsMma } from '@mui/icons-material';
 import { Box, Chip, Divider, Grid, Modal, Paper, Stack, Typography } from '@mui/material';
 
@@ -28,8 +29,8 @@ const PokemonDetails = ({ open, handleClose }: any) => {
                   </Stack>
                   <Box height={20} width={20} sx={{ backgroundImage: `url(/sprites/pokeball.png)`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }} />
                 </Stack>
-                <Typography variant='caption' textAlign='center' bgcolor='skyblue' color='#fff' py={0.5} px={2} borderRadius={1} fontSize={12} fontWeight='bold' textTransform='uppercase' mb={2} width='fit-content'>Water</Typography>
-                <Divider sx={{ mb: 2 }} />
+                <TypeIndicator variant='chip' name='water' />
+                <Divider sx={{ my: 2 }} />
                 <Stack direction='row' justifyContent='space-between'>
                   <Typography variant='button' fontSize={14} fontWeight='bold' mb={1} letterSpacing={0}>Height</Typography>
                   <Typography variant='body2' color='textSecondary' fontWeight='bold'>0.5m</Typography>

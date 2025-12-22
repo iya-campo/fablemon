@@ -10,6 +10,9 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 const Handbook = () => {
+  {/* TO DO: 
+    - Ability List
+  */}
   const [dualType, setDualType] = useState<PokemonTypeKey | null>();
   const [moveType, setMoveType] = useState('');
   const [moveCategory, setMoveCategory] = useState('');
@@ -118,14 +121,14 @@ const Handbook = () => {
             {Object.keys(POKEMON_TYPES).map((attack) => {
               return (
                 <TableRow key={attack} sx={{ '&:last-child td': { borderBottom: 'none' }, '&:hover': { bgcolor: '#f7f7f7ff' } }}>
-                  <TableCell sx={{ px: 1, width: dualType ? 180 : 'auto' }}>
-                    <Grid container size={12} spacing={1}>
+                  <TableCell sx={{ px: 1, width: dualType ? 200 : 'auto' }}>
+                    <Grid container direction={{ xs: 'column', md: 'row' }} size={12} columnSpacing={1} rowSpacing={0.5} py={{ xs: 1, md: 0 }}>
                         {(dualType && dualType !== attack) && (
-                          <Grid size={6}>
-                            <TypeIndicator variant='chip' name={dualType as PokemonTypeKey} />
+                          <Grid size='grow'>
+                            <TypeIndicator variant='chip' name={dualType as PokemonTypeKey} fullWidth />
                           </Grid>
                         )}
-                      <Grid size={dualType && dualType !== attack ? 6 : 12}>
+                      <Grid size={dualType && dualType !== attack ? 'grow' : 12}>
                         <TypeIndicator variant='chip' name={attack as PokemonTypeKey} fullWidth />
                       </Grid>
                     </Grid>
@@ -158,8 +161,8 @@ const Handbook = () => {
         <Box width={40} height={3} bgcolor='#333'></Box>
       </Stack>
       <Typography variant='body2'>A full list of every Pokemon move from all generations.</Typography>
-      <Stack direction='column' alignItems='center' gap={1} pb={4}>
-        <Grid container size={12} spacing={1} width='100%' mb={1}>
+      <Stack direction='column' gap={2} pb={4}>
+        <Grid container size={12} spacing={1}>
           <Grid size={3.5}>
             <TextField 
               placeholder='Search move'
@@ -170,7 +173,7 @@ const Handbook = () => {
                   startAdornment: <Search color='action' sx={{ mr: 1 }} />,
                 },
               }}
-              sx={{ height: '100%', backgroundColor: 'white', '& .MuiInputBase-input': { fontSize: '14px', height: '100%' } }} 
+              sx={{ backgroundColor: 'white', '& .MuiInputBase-input': { fontSize: '14px' } }} 
             />
           </Grid>
           <Grid size={2}>
@@ -189,7 +192,6 @@ const Handbook = () => {
                   {moveType && <SvgIcon htmlColor={iconMapping[moveType].color} fontSize='small'>{iconMapping[moveType].icon}</SvgIcon>}
                 </InputAdornment>
               }
-              sx={{ backgroundColor: 'white', height: '100%' }}
             >
               <MenuItem value={''} disabled>
                 <Typography variant='caption'>Select type</Typography>
@@ -221,7 +223,6 @@ const Handbook = () => {
                   {moveCategory === 'status' && <Image src='https://img.pokemondb.net/images/icons/move-status.png' height={15} width={30} alt='move-category' />}
                 </InputAdornment>
               }
-              sx={{ backgroundColor: 'white', height: '100%' }}
             >
               <MenuItem value={''} disabled>
                 <Typography variant='caption'>Select category</Typography>
@@ -242,7 +243,7 @@ const Handbook = () => {
             </Select>
           </Grid>
           <Grid size={{ xs: 12, md: 'auto' }}>
-            <Button variant='custom' fullWidth sx={{ height: '100%' }}>
+            <Button variant='custom' size='small' fullWidth>
               View All
             </Button>
           </Grid>

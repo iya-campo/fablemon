@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head />
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
             <Sidebar />

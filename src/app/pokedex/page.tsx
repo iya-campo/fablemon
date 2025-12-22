@@ -258,6 +258,15 @@ const Pokedex = () => {
             <Typography variant='button' fontSize={14} fontWeight='bold' mt={2} mb={1} letterSpacing={0}>Stats</Typography>
             <Grid container size={12} spacing={1} alignItems='center'>
               <Grid size={3}>
+                <Typography variant='body2' letterSpacing={0} textAlign='end'>HP</Typography>
+              </Grid>
+              <Grid size={2}>
+                <Typography variant='body2' letterSpacing={0} textAlign='center'>200</Typography>
+              </Grid>
+              <Grid size={7}>
+                <Box width='100%' height={5} bgcolor='green' borderRadius={50} />
+              </Grid>
+              <Grid size={3}>
                 <Typography variant='body2' letterSpacing={0} textAlign='end'>Attack</Typography>
               </Grid>
               <Grid size={2}>
@@ -308,15 +317,15 @@ const Pokedex = () => {
               <Grid size={3} height='100%' sx={{ backgroundImage: 'url(/images/bulbasaur.avif)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
               <Grid size={1.5}>
                 <Stack alignItems='center'>
-                  <ArrowRightAlt fontSize='small' />
                   <Typography variant='caption' letterSpacing={0} textAlign='center'>Lv. 16</Typography>
+                  <ArrowRightAlt fontSize='small' />
                 </Stack>
               </Grid>
               <Grid size={3} height='100%' sx={{ backgroundImage: 'url(/images/ivysaur.avif)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
               <Grid size={1.5}>
                 <Stack alignItems='center'>
-                  <ArrowRightAlt fontSize='small' />
                   <Typography variant='caption' letterSpacing={0} textAlign='center'>Lv. 36</Typography>
+                  <ArrowRightAlt fontSize='small' />
                 </Stack>
               </Grid>
               <Grid size={3} height='100%' sx={{ backgroundImage: 'url(/images/venusaur.jpg)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }} />
